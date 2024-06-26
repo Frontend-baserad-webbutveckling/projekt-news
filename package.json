@@ -1,0 +1,17 @@
+{
+  "name": "projekt-frontend",
+  "version": "1.0.0",
+  "description": "Projekt för kursen DT211G",
+  "scripts": {
+    "start": "parcel",
+    "build": "parcel build"
+  },
+  "source": "src/index.html",
+  "author": "Babak Jameei",
+  "license": "ISC",
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.12.0",
+    "parcel": "^2.12.0",
+    "sharp": "^0.31.3"
+  }
+}

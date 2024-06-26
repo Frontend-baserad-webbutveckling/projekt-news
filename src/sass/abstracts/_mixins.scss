@@ -1,0 +1,72 @@
+@mixin färg-pulsering-animation($duration: 10s, $timing-function: ease-in-out, $iteration-count: infinite) {
+    @keyframes pulserings-färger {
+       0% {
+         color: #e21d83;
+       }
+       25% {
+         color: #E2DE1D;
+       }
+       50% {
+         color: #1de27c;
+       }
+       100% {
+         color: #1D21E2;
+       }
+    }
+   
+    animation:pulserings-färger $duration $timing-function $iteration-count;
+   }
+
+// Mixin för "fade in" animering
+@mixin fade-in($duration: 1s) {
+  animation: fadeIn $duration ease-in-out;
+
+  @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+  }
+}
+
+// Mixin för "slide up" animering
+@mixin slide-up($duration: 1s, $distance: 20px) {
+  animation: slideUp $duration ease-in-out;
+
+  @keyframes slideUp {
+      from { transform: translateY($distance); }
+      to { transform: translateY(0); }
+  }
+}
+
+// Mixin för "pulse" animering
+@mixin pulse($duration: 1s, $scale: 1.1) {
+  animation: pulse $duration ease-in-out infinite;
+
+  @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale($scale); }
+      100% { transform: scale(1); }
+  }
+}
+
+@mixin neon-glow($color1, $color2, $duration: 2s) {
+  background: linear-gradient(45deg, $color1, $color2);
+  background-size: 400% 400%;
+  animation: neonGlow $duration ease infinite;
+
+  @keyframes neonGlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+  }
+}
+
+@mixin rainbow-shift($duration: 5s) {
+  background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+  background-size: 400% 400%;
+  animation: rainbowShift $duration linear infinite;
+
+  @keyframes rainbowShift {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 400% 50%; }
+  }
+}

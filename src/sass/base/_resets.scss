@@ -1,0 +1,28 @@
+
+* {
+  box-sizing: border-box;
+}
+
+/* Ta bort standardmarginaler */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* Ta bort listmarkeringar */
+ul,
+ol {
+  list-style: none;
+}
+
+/* Ta bort standardformatering för länkar */
+a {
+  text-decoration: none;
+}
+
+/* Ta bort standardformatering för bilder */
+img {
+  display: inline-block;
+  max-width: 100%;
+  height: auto;
+}

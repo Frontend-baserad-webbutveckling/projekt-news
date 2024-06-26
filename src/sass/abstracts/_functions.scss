@@ -1,0 +1,93 @@
+@mixin gradient($primär-färg) {
+    background: linear-gradient(to top, #540f0f, #e05e5e);
+    // background: linear-gradient(to top, lighten($primär-färg, 50%), $primär-färg)
+    ;
+}
+
+// Små skärmar under 748px
+@mixin responsive-small($breakpoint) {
+    @media only screen and (max-width: $breakpoint) {
+
+        .hamburger {
+            display: block;
+            position: absolute;
+            left: 85%;
+        }
+
+        .hamburger.active .bar:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active .bar:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        .hamburger.active .bar:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        /* Ändring av width för hur menyn ska synas */
+        .nav-menu {
+            position: absolute;
+            left: -110%;
+            top: 70px;
+            gap: 0;
+            flex-direction: column;
+            background-color: #e15808;
+            width: 100%;
+            text-align: center;
+            transition: 0.3s;
+
+        }
+
+        /* Avståndet mellan länkarna top and bottom */
+        .nav-item {
+            margin: 16px 0;
+        }
+
+        /* active görs i JavaScript, denna rad tar tillbaka länkarna från att att ha varit -100%
+    alternativt display: none (reverse?) */
+        .nav-menu.active {
+            left: 0;
+        }
+
+        section {
+
+            p {
+                font-size: 0.9em;
+                margin-bottom: 15px;
+            }
+
+            h1 {
+                font-size: 1.9em;
+            }
+
+            img {
+                width: 100%;
+                height: auto;
+            }
+        }
+    }
+}
+
+// Stora skärmar över 1200px
+@mixin responsive-large($breakpoint) {
+    @media only screen and (min-width: $breakpoint) {
+
+        section {
+            p {
+                font-size: 1.15em;
+                margin-bottom: 20px;
+            }
+
+            h1 {
+                font-size: 2.2em;
+            }
+
+            img {
+                width: 70%;
+                height: auto;
+            }
+        }
+    }
+}

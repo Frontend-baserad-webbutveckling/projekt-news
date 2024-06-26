@@ -1,0 +1,50 @@
+// Variabler för upprepad användning
+$primär-färg: #37b96f;
+$sekundär-färg: #2c1bbf;
+$accent-färg: complement(#2c1bbf);
+
+$border-radius: 18px;
+$box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+
+$buttonColor: #3498db;
+$hoverTransitionTime: 0.5s;
+
+// Variabler för upprepad användning
+// $colors: (
+//   // Light Theme
+//   "light": (
+//     "900": #1c1e26,
+//     "1000": #050505,
+//     "100": #f4f7fa,
+//     "300": #dbe1e9,
+//     "800": #454857,
+//     "700": #707487,
+//     "200": #f0f4f9
+//   ),
+//   // Dark Theme
+//   "dark": (
+//     "100": #0e1425,
+//     "700": #9fa7c2,
+//     "1000": #0b0f1e,
+//     "200": #161c2d,
+//     "800": #d7ddf4,
+//     "600": #757d98,
+//     "500": #5a627e,
+//     "300": #272d41,
+//     "400": #40465b,
+//     "900": #f2f4fd,
+//     "0": #0b0f1e
+//   ),
+//   // Accent Colors
+//   "accent": (
+//     "pink": #a105ae,
+//     "medium-pink": #bd36c9,
+//     "purple": #7b4fff,
+//     "light-pink": #f46eff,
+//     "dark-accent": #9385f9
+//   ),
+//   // Neutrals
+//   "neutrals": (
+//     "floral-white": #fffcf4
+//   )
+// );
