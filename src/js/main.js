@@ -44,93 +44,6 @@ function displayCountries(countries) {
     }
   });
 }
-// Funktion för att konvertera landsnamn till landkod
-function getCountryCode(countryName) {
-  const countryCodes = {
-      'Sweden': 'se',
-      'United States': 'us',
-      'United Kingdom': 'gb',
-      'Canada': 'ca',
-      'Australia': 'au',
-      'Germany': 'de',
-      'France': 'fr',
-      'Italy': 'it',
-      'Spain': 'es',
-      'China': 'cn',
-      'Japan': 'jp',
-      'South Korea': 'kr',
-      'Brazil': 'br',
-      'India': 'in',
-      'Mexico': 'mx',
-      'Russia': 'ru',
-      'Netherlands': 'nl',
-      'Belgium': 'be',
-      'Norway': 'no',
-      'Denmark': 'dk',
-      'Finland': 'fi',
-      'Switzerland': 'ch',
-      'Austria': 'at',
-      'Ireland': 'ie',
-      'New Zealand': 'nz',
-      'South Africa': 'za',
-      'Argentina': 'ar',
-      'Chile': 'cl',
-      'Colombia': 'co',
-      'Egypt': 'eg',
-      'Greece': 'gr',
-      'Hungary': 'hu',
-      'Iceland': 'is',
-      'Israel': 'il',
-      'Malaysia': 'my',
-      'Nigeria': 'ng',
-      'Pakistan': 'pk',
-      'Philippines': 'ph',
-      'Poland': 'pl',
-      'Portugal': 'pt',
-      'Saudi Arabia': 'sa',
-      'Singapore': 'sg',
-      'Turkey': 'tr',
-      'Ukraine': 'ua',
-      'Vietnam': 'vn',
-      'Bangladesh': 'bd',
-      'Czech Republic': 'cz',
-      'Indonesia': 'id',
-      'Kazakhstan': 'kz',
-      'Kenya': 'ke',
-      'Morocco': 'ma',
-      'Peru': 'pe',
-      'Romania': 'ro',
-      'Slovakia': 'sk',
-      'Thailand': 'th',
-      'United Arab Emirates': 'ae',
-      'Venezuela': 've',
-      'Zimbabwe': 'zw',
-      'Portugal': 'pt',
-      'Luxembourg': 'lu',
-      'Monaco': 'mc',
-      'Liechtenstein': 'li',
-      'Malta': 'mt',
-      'Cyprus': 'cy',
-      'Estonia': 'ee',
-      'Latvia': 'lv',
-      'Lithuania': 'lt',
-      'Slovenia': 'si',
-      'Croatia': 'hr',
-      'Bosnia and Herzegovina': 'ba',
-      'North Macedonia': 'mk',
-      'Serbia': 'rs',
-      'Montenegro': 'me',
-      'Albania': 'al',
-      'Bulgaria': 'bg',
-      'Georgia': 'ge',
-      'Armenia': 'am',
-      'Azerbaijan': 'az',
-      'Moldova': 'md',
-      'Belarus': 'by'
-  };
-  return countryCodes[countryName] || '';
-}
-
 // Hämta nyheter för ett land
 async function getNews(countryName) {
   const apiKey = '42bd8b5e092c4462987691c6f166b316'; 
@@ -157,6 +70,15 @@ async function getNews(countryName) {
 }
 
 // Visa nyheter
+function loadImage(src) {
+  return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve(img);
+      img.onerror = reject;
+      img.src = src;
+  });
+}
+
 function displayNews(articles) {
   const newsContainer = document.getElementById('news-container');
   newsContainer.innerHTML = '';
@@ -170,11 +92,17 @@ function displayNews(articles) {
       const articleElement = document.createElement('article');
       articleElement.innerHTML = `
           <h2>${article.title || 'Ingen titel tillgänglig'}</h2>
-          <p>${article.description || 'Ingen beskrivning tillgänglig'}</p>
+          ${article.description ? `<p>${article.description}</p>` : ''}
+          <p>Källa: ${article.source.name}</p>
           <a href="${article.url}" target="_blank">Läs mer</a>
+          ${article.publishedAt ? `<p>Publicerad: ${new Date(article.publishedAt).toLocaleString()}</p>` : ''}
+         <img src="${article.urlToImage || 'https://loremflickr.com/300/300/news'}" alt="Nyhetsbild" style="max-width:100%; height:auto;">
       `;
       newsContainer.appendChild(articleElement);
   });
 }
+img
+
+
 // Starta appen
 getCountries();
