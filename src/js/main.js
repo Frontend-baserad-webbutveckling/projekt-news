@@ -24,13 +24,13 @@ async function getCountries(searchTerm = '') {
     document.getElementById('countries-list').innerHTML = 'Kunde inte hämta länder. Försök igen.';
   }
 }
-
+  // lista med länder som man favoritiserat
+  const favoritesList = document.getElementById('favorites-list');
 // Visa länder
 function displayCountries(countries) {
   // lista med samtliga länder
   const countriesList = document.getElementById('countries-list');
-  // lista med länder som man favoritiserat
-  const favoritesList = document.getElementById('favorites-list');
+
   countriesList.innerHTML = '';// Rensa tidigare resultat
   
   if (countries.length === 0) {
@@ -51,6 +51,36 @@ function displayCountries(countries) {
     }
   });
 }
+
+function toggleFavorite(event, countryName) {
+  const heartElement = event.target;
+  const favoritesList = document.getElementById('favorites-list');
+  
+  
+
+// Kontrollera om landet redan är favoritmarkerat
+const existingFavorite = favoritesList.querySelector(`[data-country="${countryName}"]`);
+  
+if (existingFavorite) {
+  // om redan markerad, ta bort från favoriter 
+  existingFavorite.parentElement.remove();
+  heartElement.innerHTML = '&#9825;'; // Emoji för tomt hjärta
+} else {
+  // om inte redan markerad, lägg till favoriter
+  const favoriteElement = document.createElement('div');
+  favoriteElement.innerHTML = `
+    <span class="country-name">${countryName}</span>
+    <span class="favorite-heart" data-country="${countryName}">&#9829;</span>
+  `;
+  favoriteElement.querySelector('.country-name').addEventListener('click', () => getNews(countryName));
+  favoriteElement.querySelector('.favorite-heart').addEventListener('click', (e) => toggleFavorite(e, countryName));
+  favoritesList.appendChild(favoriteElement);
+  heartElement.innerHTML = '&#9829;'; // Emoji för ifyllt hjärta
+}
+}
+
+
+
 // Hämta nyheter för ett land
 async function getNews(countryName) {
   const apiKey = '42bd8b5e092c4462987691c6f166b316'; 
