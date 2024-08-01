@@ -27,8 +27,11 @@ async function getCountries(searchTerm = '') {
 
 // Visa länder
 function displayCountries(countries) {
+  // lista med samtliga länder
   const countriesList = document.getElementById('countries-list');
-  countriesList.innerHTML = ''; // Rensa tidigare resultat
+  // lista med länder som man favoritiserat
+  const favoritesList = document.getElementById('favorites-list');
+  countriesList.innerHTML = '';// Rensa tidigare resultat
   
   if (countries.length === 0) {
     countriesList.innerHTML = 'Inga länder hittades.';
@@ -38,8 +41,12 @@ function displayCountries(countries) {
   countries.forEach(country => {
     if (country && country.name && country.name.common) {
       const countryElement = document.createElement('div');
-      countryElement.textContent = country.name.common;
-      countryElement.addEventListener('click', () => getNews(country.name.common));
+      countryElement.innerHTML = `
+        <span class="country-name">${country.name.common}</span>
+        <span class="favorite-heart" data-country="${country.name.common}">&#9825;</span>
+      `;
+      countryElement.querySelector('.country-name').addEventListener('click', () => getNews(country.name.common));
+      countryElement.querySelector('.favorite-heart').addEventListener('click', (e) => toggleFavorite(e, country.name.common));
       countriesList.appendChild(countryElement);
     }
   });
