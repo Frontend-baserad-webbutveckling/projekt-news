@@ -52,38 +52,10 @@ function displayCountries(countries) {
   });
 }
 
-function toggleFavorite(event, countryName) {
-  const heartElement = event.target;
-  const favoritesList = document.getElementById('favorites-list');
-  
-  
-
-// Kontrollera om landet redan är favoritmarkerat
-const existingFavorite = favoritesList.querySelector(`[data-country="${countryName}"]`);
-  
-if (existingFavorite) {
-  // om redan markerad, ta bort från favoriter 
-  existingFavorite.parentElement.remove();
-  heartElement.innerHTML = '&#9825;'; // Emoji för tomt hjärta
-} else {
-  // om inte redan markerad, lägg till favoriter
-  const favoriteElement = document.createElement('div');
-  favoriteElement.innerHTML = `
-    <span class="country-name">${countryName}</span>
-    <span class="favorite-heart" data-country="${countryName}">&#9829;</span>
-  `;
-  favoriteElement.querySelector('.country-name').addEventListener('click', () => getNews(countryName));
-  favoriteElement.querySelector('.favorite-heart').addEventListener('click', (e) => toggleFavorite(e, countryName));
-  favoritesList.appendChild(favoriteElement);
-  heartElement.innerHTML = '&#9829;'; // Emoji för ifyllt hjärta
-}
-}
-
-
 
 // Hämta nyheter för ett land
 async function getNews(countryName) {
-  const apiKey = '42bd8b5e092c4462987691c6f166b316'; 
+  const apiKey = '8095b74a464c4b83a02efa577e110ad6'; 
   const countryCode = getCountryCode(countryName);
   
   if (!countryCode) {
@@ -130,6 +102,7 @@ function displayNews(articles) {
       articleElement.innerHTML = `
           <h2>${article.title || 'Ingen titel tillgänglig'}</h2>
           ${article.description ? `<p>${article.description}</p>` : ''}
+           ${article.content ? `<p>${article.content}</p>` : ''}
           <p>Källa: ${article.source.name}</p>
           <a href="${article.url}" target="_blank">Läs mer</a>
           ${article.publishedAt ? `<p>Publicerad: ${new Date(article.publishedAt).toLocaleString()}</p>` : ''}
@@ -138,8 +111,93 @@ function displayNews(articles) {
       newsContainer.appendChild(articleElement);
   });
 }
-img
+// img
 
+// Spara favoriter till localStorage
+function saveFavorites(favorites) {
+  localStorage.setItem('favoriteCountries', JSON.stringify(favorites));
+}
+
+// Ladda favoriter från localStorage
+function loadFavorites() {
+  const saved = localStorage.getItem('favoriteCountries');
+  return saved ? JSON.parse(saved) : [];
+}
+
+// Växla favorit-status för ett land
+function toggleFavorite(event, countryName) {
+  const heartElement = event.target;
+  const favoritesList = document.getElementById('favorites-list');
+  let favorites = loadFavorites();
+  
+  const index = favorites.indexOf(countryName);
+  if (index > -1) {
+    // Om favorit, ta bort från favoriter
+    favorites.splice(index, 1);
+    heartElement.innerHTML = '&#9825;'; // Tomt hjärta
+  } else {
+    // Om inte favorit, lägg till i favoriter
+    favorites.push(countryName);
+    heartElement.innerHTML = '&#9829;'; // Fyllt hjärta
+  }
+  
+  saveFavorites(favorites);
+  displayFavorites();
+}
+
+// Visa favoritlistan
+function displayFavorites() {
+  const favoritesList = document.getElementById('favorites-list');
+  favoritesList.innerHTML = ''; // Rensa nuvarande favoriter
+  
+  const favorites = loadFavorites();
+  
+  favorites.forEach(countryName => {
+    const favoriteElement = document.createElement('div');
+    favoriteElement.innerHTML = `
+      <span class="country-name">${countryName}</span>
+      <span class="favorite-heart" data-country="${countryName}">&#9829;</span>
+    `;
+    favoriteElement.querySelector('.country-name').addEventListener('click', () => getNews(countryName));
+    favoriteElement.querySelector('.favorite-heart').addEventListener('click', (e) => toggleFavorite(e, countryName));
+    favoritesList.appendChild(favoriteElement);
+  });
+}
+
+// Visa länderlistan
+function displayCountries(countries) {
+  const countriesList = document.getElementById('countries-list');
+  countriesList.innerHTML = ''; // Rensa tidigare resultat
+  
+  if (countries.length === 0) {
+    countriesList.innerHTML = 'Inga länder hittades.';
+    return;
+  }
+  
+  const favorites = loadFavorites();
+  
+  countries.forEach(country => {
+    if (country && country.name && country.name.common) {
+      const countryElement = document.createElement('div');
+      const isFavorite = favorites.includes(country.name.common);
+      countryElement.innerHTML = `
+        <span class="country-name">${country.name.common}</span>
+        <span class="favorite-heart" data-country="${country.name.common}">
+          ${isFavorite ? '&#9829;' : '&#9825;'}
+        </span>
+      `;
+      countryElement.querySelector('.country-name').addEventListener('click', () => getNews(country.name.common));
+      countryElement.querySelector('.favorite-heart').addEventListener('click', (e) => toggleFavorite(e, country.name.common));
+      countriesList.appendChild(countryElement);
+    }
+  });
+}
+
+// Visa favoritlistan när sidan laddas
+document.addEventListener('DOMContentLoaded', () => {
+  displayFavorites();
+});
+  
 
 // Starta appen
 getCountries();
