@@ -70,3 +70,16 @@
       100% { background-position: 400% 50%; }
   }
 }
+
+// Mixin för hovringseffekt
+@mixin hover-effect($color) {
+  transition: color 0.3s ease-in-out;
+  &:hover {
+    color: $color;
+  }
+}
+
+// Mixin för fade-effekt
+@mixin fade-effect($property, $duration) {
+  transition: $property $duration ease-in-out;
+}

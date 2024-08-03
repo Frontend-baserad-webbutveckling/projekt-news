@@ -1,13 +1,50 @@
 // Variabler för upprepad användning
-$primär-färg: #37b96f;
-$sekundär-färg: #2c1bbf;
-$accent-färg: complement(#2c1bbf);
-
-$border-radius: 18px;
-$box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+// Färger
+$primär-färg: #181a1b;
+$sekundär-färg: rgb(255, 253, 249);
+$accent-färg: #f2b306c5;
 
 $buttonColor: #3498db;
+
+// Extra färgteman
+$info-färg: #3498db;
+$success-färg: #2ecc71;
+$warning-färg: #e67e22;
+$danger-färg: #e74c3c;
+
+$light-gray: #ecf0f1;
+$medium-gray: #bdc3c7;
+$dark-gray: #7f8c8d;
+
+// Border-radius
+$border-radius-small: 5px;
+$border-radius-medium: 10px;
+$border-radius-large: 18px;
+$border-radius-full: 50%;
+
+// Box-shadow
+$box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+
+// Padding
+$padding-small: 5px;
+$padding-medium: 10px;
+$padding-large: 20px;
+$padding-extra-large: 30px;
+
+// Margin
+$margin-small: 5px;
+$margin-medium: 10px;
+$margin-large: 20px;
+$margin-extra-large: 30px;
+
+// Transition
 $hoverTransitionTime: 0.5s;
+
+// Font sizes
+$font-size-small: 12px;
+$font-size-medium: 16px;
+$font-size-large: 20px;
+$font-size-extra-large: 24px;
 
 // Variabler för upprepad användning
 // $colors: (
