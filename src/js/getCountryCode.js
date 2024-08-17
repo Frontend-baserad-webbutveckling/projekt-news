@@ -295,3 +295,6 @@ function getCountryCode(countryName) {
   };
   return countryCodes[countryName] || '';
 }
+
+// lägger till funktionen globalt
+window.getCountryCode = getCountryCode;

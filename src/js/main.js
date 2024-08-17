@@ -1,6 +1,15 @@
-document.getElementById('searchButton').addEventListener('click', () => {
+
+// Dynamisk sök
+let debounceTimeout;
+
+document.getElementById('searchInput').addEventListener('input', () => {
   const userInput = document.getElementById('searchInput').value;
-  getCountries(userInput); 
+
+  clearTimeout(debounceTimeout);
+
+  debounceTimeout = setTimeout(() => {
+    getCountries(userInput);
+  }, 100);
 });
 
 // Hämta länder
@@ -26,37 +35,12 @@ async function getCountries(searchTerm = '') {
 }
   // lista med länder som man favoritiserat
   const favoritesList = document.getElementById('favorites-list');
-// Visa länder
-function displayCountries(countries) {
-  // lista med samtliga länder
-  const countriesList = document.getElementById('countries-list');
-
-  countriesList.innerHTML = '';// Rensa tidigare resultat
-  
-  if (countries.length === 0) {
-    countriesList.innerHTML = 'Inga länder hittades.';
-    return;
-  }
-  
-  countries.forEach(country => {
-    if (country && country.name && country.name.common) {
-      const countryElement = document.createElement('div');
-      countryElement.innerHTML = `
-        <span class="country-name">${country.name.common}</span>
-        <span class="favorite-heart" data-country="${country.name.common}">&#9825;</span>
-      `;
-      countryElement.querySelector('.country-name').addEventListener('click', () => getNews(country.name.common));
-      countryElement.querySelector('.favorite-heart').addEventListener('click', (e) => toggleFavorite(e, country.name.common));
-      countriesList.appendChild(countryElement);
-    }
-  });
-}
 
 
 // Hämta nyheter för ett land
 async function getNews(countryName) {
   const apiKey = '8095b74a464c4b83a02efa577e110ad6'; 
-  const countryCode = getCountryCode(countryName);
+  const countryCode = window.getCountryCode(countryName);
   
   if (!countryCode) {
       console.error('Kunde inte hitta landkod för:', countryName);
@@ -98,17 +82,17 @@ function displayNews(articles) {
   }
 
   articles.forEach(article => {
-      const articleElement = document.createElement('article');
-      articleElement.innerHTML = `
-          <h2>${article.title || 'Ingen titel tillgänglig'}</h2>
-          ${article.description ? `<p>${article.description}</p>` : ''}
-           ${article.content ? `<p>${article.content}</p>` : ''}
-          <p>Källa: ${article.source.name}</p>
-          <a href="${article.url}" target="_blank">Läs mer</a>
-          ${article.publishedAt ? `<p>Publicerad: ${new Date(article.publishedAt).toLocaleString()}</p>` : ''}
-         <img src="${article.urlToImage || 'https://loremflickr.com/300/300/news'}" alt="Nyhetsbild" style="max-width:100%; height:auto;">
-      `;
-      newsContainer.appendChild(articleElement);
+    const articleElement = document.createElement('article');
+    articleElement.innerHTML = `
+        <h2>${article.title || 'Ingen titel tillgänglig'}</h2>
+        ${article.description ? `<p>${article.description}</p>` : ''}
+        ${article.content ? `<p>${article.content}</p>` : ''}
+        <p>Källa: ${article.source.name}</p>
+        <a href="${article.url}" target="_blank">Läs mer</a>
+        ${article.publishedAt ? `<p>Publicerad: ${new Date(article.publishedAt).toLocaleString()}</p>` : ''}
+        <img src="${article.urlToImage || `https://picsum.photos/1200/600?random=${Math.random()}`}" alt="Nyhetsbild" style="max-width:100%; height:auto;">
+    `;
+    newsContainer.appendChild(articleElement);
   });
 }
 // img

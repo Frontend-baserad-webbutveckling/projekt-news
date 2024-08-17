@@ -144,10 +144,12 @@ header {
   .country-name {
     @include hover-effect(#FFD700); // Gul färg vid hovring
     @include fade-effect(color, 0.3s);
+    cursor: pointer;
   }
   
   .favorite-heart {
     @include hover-effect(#FF4500); // Orange färg vid hovring
     @include fade-effect(color, 0.3s);
+    cursor: pointer;
   }
   
