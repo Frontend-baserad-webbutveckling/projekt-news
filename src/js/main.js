@@ -39,7 +39,7 @@ async function getCountries(searchTerm = '') {
 
 // Hämta nyheter för ett land
 async function getNews(countryName) {
-  const apiKey = '8095b74a464c4b83a02efa577e110ad6'; 
+  const apiKey = '19d80c055ab647379e3f4f2c04ed873f'; 
   const countryCode = window.getCountryCode(countryName);
   
   if (!countryCode) {
