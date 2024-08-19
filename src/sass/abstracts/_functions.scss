@@ -1,7 +1,5 @@
 @mixin gradient($primär-färg) {
     background: linear-gradient(to top, #540f0f, #e05e5e);
-    // background: linear-gradient(to top, lighten($primär-färg, 50%), $primär-färg)
-    ;
 }
 
 // Små skärmar under 748px
@@ -45,8 +43,7 @@
             margin: 16px 0;
         }
 
-        /* active görs i JavaScript, denna rad tar tillbaka länkarna från att att ha varit -100%
-    alternativt display: none (reverse?) */
+        /* active görs i JavaScript, denna rad tar tillbaka länkarna från att att ha varit -110% */
         .nav-menu.active {
             left: 0;
         }
