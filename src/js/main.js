@@ -39,18 +39,17 @@ async function getCountries(searchTerm = '') {
 
 // Hämta nyheter för ett land
 async function getNews(countryName) {
-  const apiKey = '19d80c055ab647379e3f4f2c04ed873f'; 
   const countryCode = window.getCountryCode(countryName);
-  
+
   if (!countryCode) {
       console.error('Kunde inte hitta landkod för:', countryName);
       return;
   }
 
   try {
-      const response = await fetch(`https://newsapi.org/v2/top-headlines?country=${countryCode}&apiKey=${apiKey}`);
+      const response = await fetch(`/.netlify/functions/getNews?countryCode=${countryCode}`);
       const newsData = await response.json();
-      
+
       if (newsData.status === 'ok') {
           displayNews(newsData.articles);
       } else {
@@ -61,6 +60,7 @@ async function getNews(countryName) {
       document.getElementById('news-container').innerHTML = 'Kunde inte ladda nyheter. Försök igen senare.';
   }
 }
+
 
 // Visa nyheter
 function loadImage(src) {
